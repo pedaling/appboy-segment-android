@@ -25,7 +25,7 @@ android {
 
 // Grabs the first line of the changelog to get the current version. Expects the line to start with Markdown syntax
 // (ex: ## major.minor.build)
-def changelogFile = new File("../public/CHANGELOG.md")
+def changelogFile = new File("../../CHANGELOG.md")
 if (changelogFile.exists()) {
   changelogFile.withReader {
     version = it.readLine().substring(3)

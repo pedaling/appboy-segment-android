@@ -6,7 +6,7 @@ apply plugin: 'com.jfrog.artifactory'
 // Grabs the first line of the changelog to get the current version. 
 // Expects the line to start with Markdown syntax
 // (ex: ## major.minor.build)
-new File("../public/CHANGELOG.md").withReader { version = it.readLine().substring(3) }
+new File("../CHANGELOG.md").withReader { version = it.readLine().substring(3) }
 logger.lifecycle("Setting version to last recorded version in CHANGELOG.md: " + version)
 
 allprojects {
@@ -25,8 +25,8 @@ buildscript {
   }
 
   dependencies {
-    classpath "com.android.tools.build:gradle:${ANDROID_BUILD_TOOLS_GRADLE_VERSION}"
-    classpath "org.jfrog.buildinfo:build-info-extractor-gradle:${JFROG_BUILD_INFO_EXTRACTOR_VERSION}"
+    classpath "com.android.tools.build:gradle:7.2.1"
+    classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4.29.4"
   }
 }
 

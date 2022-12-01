@@ -28,6 +28,7 @@ import com.segment.analytics.integrations.IdentifyPayload;
 import com.segment.analytics.integrations.Integration;
 import com.segment.analytics.integrations.Logger;
 import com.segment.analytics.integrations.TrackPayload;
+import com.segment.analytics.integrations.ScreenPayload;
 
 import org.json.JSONObject;
 
@@ -295,6 +296,26 @@ public class AppboyIntegration extends Integration<Appboy> {
           event, propertiesJson.toString());
         mAppboy.logCustomEvent(event, new BrazeProperties(propertiesJson));
       }
+    }
+  }
+
+  @Override
+  public void screen(ScreenPayload screen) {
+    super.screen(screen);
+    if (screen == null) {
+      return;
+    }
+    String name = screen.name();
+    Properties properties = screen.properties();
+    JSONObject propertiesJson = properties.toJsonObject();
+
+    if (propertiesJson == null || propertiesJson.length() == 0) {
+      mLogger.verbose("Calling appboy.logCustomEvent for screen %s", name);
+      mAppboy.logCustomEvent(name);
+    } else {
+      mLogger.verbose("Calling appboy.logCustomEvent for screen %s with properties %s.",
+        name, propertiesJson.toString());
+      mAppboy.logCustomEvent(name, new BrazeProperties(propertiesJson));
     }
   }
 
